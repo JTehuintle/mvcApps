@@ -27,11 +27,16 @@ public class AppPanel extends JPanel implements Subscriber, ActionListener  {
         frame.setSize(FRAME_WIDTH, FRAME_HEIGHT);
     }
 
-    public void display() { frame.setVisible(true); }
+    public void display() {
+        frame.setVisible(true); }
 
-    public void update() {  /* override in extensions if needed */ }
+    public void update() {
+        /* override in extensions if needed */
+    }
 
-    public Model getModel() { return model; }
+    public Model getModel() {
+        return model;
+    }
 
     // called by file/open and file/new
     public void setModel(Model newModel) {
