@@ -6,7 +6,7 @@ public class Model {
     public static int percentMined = 5;
     private boolean [][] mines;
     private boolean [][] visited;
-    private int rows  = 20, coloums = 20;
+    private int rows  = 20, columns = 20;
     private int playerRowStart = 0, playerColStart = 0;
     private boolean gameOver = false;
 
@@ -15,12 +15,12 @@ public class Model {
     }
     //grid structure
     private void initGrid(){
-    mines = new boolean[rows][coloums];
-    visited = new boolean[rows][coloums];
+    mines = new boolean[rows][columns];
+    visited = new boolean[rows][columns];
     Random rand = Utilities.rng;
         for (int r = 0; r < rows; r++) {
-        for (int c = 0; c < coloums; c++) {
-            if (!(r == 0 && c == 0) && !(r == rows - 1 && c == coloums - 1)) {
+        for (int c = 0; c < columns; c++) {
+            if (!(r == 0 && c == 0) && !(r == rows - 1 && c == columns - 1)) {
                 mines[r][c] = rand.nextInt(100) < percentMined;
             }
         }
@@ -50,7 +50,7 @@ public class Model {
             case SouthEast: newRow++;newCol++;
                 break;
         }
-        if(newRow < 0 || newRow >= rows || newCol < 0 ||newCol >= coloums){
+        if(newRow < 0 || newRow >= rows || newCol < 0 ||newCol >= columns){
             throw new Exception("Can't move off grid");
         }
         if(mines[newRow][newCol]){
@@ -61,11 +61,11 @@ public class Model {
         playerRowStart = newRow;
         visited[playerRowStart][playerColStart] = true;
 
-        if(playerRowStart == rows - 1 && playerColStart == coloums -1){
+        if(playerRowStart == rows - 1 && playerColStart == columns -1){
             gameOver = true;
             throw new Exception("Congrats, you reached the end!");
         }
-        //
+        changed();
     }
     public int getPeriferalMines(){
         int count = 0;
@@ -75,7 +75,7 @@ public class Model {
                     continue;
                 }
                 int nr = playerRowStart + pr, nc = playerColStart + pc;
-                if(nr >= 0 && nr < rows && nc >= 0 && nc < coloums && mines[nr][nc]){
+                if(nr >= 0 && nr < rows && nc >= 0 && nc < columns && mines[nr][nc]){
                     count++;
                 }
             }
@@ -86,10 +86,10 @@ public class Model {
     public int getRows(){
         return rows;
     }
-    public int getColoums(){
-        return coloums;
+    public int getColums(){
+        return columns;
     }
-    public boolean isVisted(int r, int c ){
+    public boolean isVisited(int r, int c ){
         return visited[r][c];
     }
     public int getPlayerRowStart(){
@@ -97,6 +97,23 @@ public class Model {
     }
     public int getPlayerColStart(){
         return playerColStart;
+    }
+    private String fileName = null;
+    private boolean UnsavedChanges = false;
+    public void setFileName(String fName){
+        fileName = fName;
+    }
+    public String getFileName(){
+        return fileName;
+    }
+    public boolean getUnsavedChanges(){
+        return UnsavedChanges;
+    }
+    public void setUnsavedChanges (boolean flag){
+        UnsavedChanges = flag ;
+    }
+
+    public void changed() {
     }
 }
 enum Movement{

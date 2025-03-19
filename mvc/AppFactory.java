@@ -15,10 +15,34 @@ public class AppFactory {
                 "Avoid mines and reach the bottom right corner"
         };
     }
-    public String[] getCommands(){
+    //
+    public String about(){
+        return "Mine Field";
+    }
+    public String[] getEditCommands(){
         return new String[]{
-                "North, South, East, West, NorthWest, NorthEast, SouthWest, SouthEast"
+                "North", "South", "East", "West", "NorthWest", "NorthEast", "SouthWest", "SouthEast"
         };
     }
-    public Command makeCommand(Model model, String type)
+    public Command makeEditCommand(Model model, String type, Object source){
+        switch (type) {
+            case "North":
+                return new MoveCommand(model, Movement.North);
+            case "South":
+                return new MoveCommand(model, Movement.South);
+            case "East":
+                return new MoveCommand(model, Movement.East);
+            case "West":
+                return new MoveCommand(model, Movement.West);
+            case "NorthWest":
+                return new MoveCommand(model, Movement.NorthWest);
+            case "NorthEast":
+                return new MoveCommand(model, Movement.NorthEast);
+            case "SouthWest":
+                return new MoveCommand(model, Movement.SouthWest);
+            case "SouthEast":
+                return new MoveCommand(model, Movement.SouthEast);
+        }
+        return null;
+    }
 }

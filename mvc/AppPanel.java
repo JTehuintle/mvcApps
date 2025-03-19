@@ -25,7 +25,32 @@ public class AppPanel extends JPanel implements Subscriber, ActionListener  {
         frame.setJMenuBar(createMenuBar());
         frame.setTitle(factory.getTitle());
         frame.setSize(FRAME_WIDTH, FRAME_HEIGHT);
+        addControlsAndView();
+
     }
+
+    private void addControlsAndView() {
+        setLayout(new BorderLayout());
+
+        JPanel controls = new JPanel(new GridLayout(3,3));
+        String[] labels = {
+                "NW", "N", "NW",
+                "W", "E",
+                "SW", "S","SE"
+        };
+        for(String label: labels){
+            if(label.equals("")){
+                controls.add(new JLabel());
+            }else{
+                JButton btn = new JButton(label);
+                btn.addActionListener(this);
+                controls.add(btn);
+            }
+        }
+        add(controls,BorderLayout.WEST);
+        add((Component) view, BorderLayout.CENTER);
+    }
+
 
     public void display() {
         frame.setVisible(true); }
@@ -90,7 +115,8 @@ public class AppPanel extends JPanel implements Subscriber, ActionListener  {
             } else if (cmmd.equals("Help")) {
                 Utilities.inform(factory.getHelp());
             } else { // must be from Edit menu
-                //???
+                factory.makeEditCommand(model, cmmd, this).execute();
+                model.setUnsavedChanges(true);
             }
         } catch (Exception e) {
             handleException(e);
