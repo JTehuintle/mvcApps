@@ -6,9 +6,9 @@ import java.util.concurrent.Flow;
 
 public class View extends JPanel implements Subscriber {
     public void setModel(Model newModel){
-        //model.unsubscribe(this);
-        //model = newModel;
-        //model.subscribe(this);
+        model.unsubscribe(this);
+        model = newModel;
+        model.subscribe(this);
         initView();
         repaint();
     }
@@ -17,6 +17,7 @@ public class View extends JPanel implements Subscriber {
 
     public View(Model m) {
         this.model = m;
+        model.subscribe(this);
         initView();
     }
     public void initView(){
@@ -39,8 +40,12 @@ public class View extends JPanel implements Subscriber {
                 if(r == model.getPlayerRowStart() && c == model.getPlayerColStart()){
                     btn.setBackground(Color.white);
                     btn.setText(model.getPeriferalMines() + "");
-                }else if(model.isVisited(r, c)){
-                    btn.setBackground((Color.GRAY));
+                }else if(model.isVisited(r, c)) {
+                    btn.setBackground((Color.lightGray));
+                    btn.setText("");
+                }else if(model.isGameOver() && model.isMine(r,c)){
+                    btn.setBackground(Color.red);
+                    btn.setText("M");
                 }else{
                     btn.setBackground(Color.black);
                     btn.setText("?");

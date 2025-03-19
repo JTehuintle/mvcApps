@@ -17,3 +17,4 @@ public class Publisher {
         for (Subscriber s : subscribers) s.update();
     }
 }
+

@@ -53,6 +53,8 @@ public class Model extends Publisher {
         if(newRow < 0 || newRow >= rows || newCol < 0 ||newCol >= columns){
             throw new Exception("Can't move off grid");
         }
+
+        //make it throw expection form appPanel java 3-19-20
         if(mines[newRow][newCol]){
             gameOver = true;
             throw new Exception("Steped on Mine");
@@ -112,8 +114,16 @@ public class Model extends Publisher {
     public void setUnsavedChanges (boolean flag){
         UnsavedChanges = flag ;
     }
+    public boolean isMine(int r, int c){
+        return mines[r][c];
+    }
+    public boolean isGameOver(){
+        return gameOver;
+    }
 
+    @Override
     public void changed() {
+        super.changed();
     }
 }
 enum Movement{
