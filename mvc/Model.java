@@ -2,7 +2,7 @@ package mvc;
 
 import java.util.Random;
 
-public class Model {
+public class Model extends Publisher {
     public static int percentMined = 5;
     private boolean [][] mines;
     private boolean [][] visited;
