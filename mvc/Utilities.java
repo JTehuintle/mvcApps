@@ -1,5 +1,7 @@
 package mvc;
 
+import game.Model;
+
 import java.awt.event.*;
 import java.awt.event.ActionListener;
 import java.io.*;
